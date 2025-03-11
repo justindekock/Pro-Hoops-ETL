@@ -2,3 +2,4 @@
 /src/database/dbconfig.py
 **/*config*/
 **/*.ini
+/.vscode

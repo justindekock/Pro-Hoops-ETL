@@ -1,0 +1,4 @@
+
+
+
+show columns from game;

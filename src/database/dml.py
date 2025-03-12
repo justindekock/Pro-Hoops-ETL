@@ -1,16 +1,6 @@
 import mariadb
 import pandas as pd
-from dbconfig import connect_mariadb, disconnect
-
-def select_count(table):
-    query = f'select count(*) from {table}'
-    conn, cur = connect_mariadb()
-    cur.execute(query)
-    recs = cur.fetchone()
-    disconnect(conn)
-    return recs[0]
-
-#print(select_count('test'))
+from dba import connect_mariadb, disconnect, select_count, show_tables, show_columns
 
 def select(query, fetch_type):
     conn, cur = connect_mariadb()
@@ -28,19 +18,26 @@ def select(query, fetch_type):
 
 # TODO - create one function where you pass a table name and list of values, then another where you call that on a list of lists of values
 def insert_into(table, fields, values):
-    vals_ph = ('?, ' * len(fields))[:-2]
-    #print(vals_ph)
-    
+    #vals_ph = ('?, ' * len(fields))[:-2]
+    vals_ph = ', '.join(['%s'] * len(fields))
     fields_str = ', '.join(fields)
-    print(fields_str)
-    insert_query = f"""
-    insert ignore into {table} ({fields_str})
-    {vals_ph} 
-    """
-    return insert_query
+    insert_query = f'insert ignore into {table} ({fields_str}) values {vals_ph};'
+    
+    pre_count = select_count(table)
+    conn, cur = connect_mariadb()
+    cur.execute(insert_query, values)
+    post_count = select_count(table)
+    new_recs = post_count - pre_count
+    
+    if new_recs > 0: 
+        conn.commit()
+        print(f'Committed insert of {new_recs} new records')
+    else: 
+        print(f'No new records found after insert')
+        
+    disconnect(conn)
 
-
-print(insert_into('game', ['col1', 'col2', 'col3', 'col4', 'col5'], [6, 7, 8, 9, 10]))
+insert_into('test', ['col1', 'col2', 'col3', 'col4'], (6, 'op', 2, '2025-03-11'))
 
 
 

@@ -1,5 +1,5 @@
 import mariadb
-from dbconfig import DBConfig
+from database.dbconfig import DBConfig
 
 config = DBConfig()
 
@@ -32,6 +32,12 @@ def select_count(table):
     cur.execute(query)
     recs = cur.fetchone()
     disconnect(conn)
+    return recs[0]
+
+def select_count_conn(cur, table):
+    query = f'select count(*) from {table}'
+    cur.execute(query)
+    recs = cur.fetchone()
     return recs[0]
     
 # conn, cur = connect_mariadb()
@@ -69,8 +75,20 @@ def show_columns(table):
     #print(cols)
     print(vals)
     
+    
+def select(query, fetch_type):
+    conn, cur = connect_mariadb()
+    cur.execute(query)    
+    if fetch_type == 'all':
+        result = cur.fetchall()
+    elif fetch_type == 'one':
+        result = cur.fetchone()
+    elif fetch_type == 'df':
+        result = pd.read_sql(query, conn)
+    disconnect(conn)
+    return result
 #show_tables('prohoops')
-show_columns('game')
+#show_columns('game')
 
 
 

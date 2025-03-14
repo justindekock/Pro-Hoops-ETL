@@ -123,3 +123,9 @@ create table if not exists team_shooting (
     primary key (game_id, team_id),
     foreign key (team_id) references active_teams (team_id)
 );
+
+/*
+select a.player_name, b.team_name 
+from active_players a 
+inner join active_teams b on a.team_id = b.team_id;
+*/

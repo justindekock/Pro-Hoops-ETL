@@ -1,3 +1,4 @@
+import inspect
 from nba_api.stats.endpoints import leaguegamefinder
 from data.clean import CleanGameLogs
 
@@ -16,7 +17,19 @@ def get_game_logs(game_date):
             ).get_data_frames()[0]
         
             clean_game_logs = CleanGameLogs(game_logs_df)
-            return clean_game_logs
+            methods = inspect.getmembers(clean_game_logs, predicate=inspect.ismethod)
+            tables = []
+
+            methods_to_exclude = ['__init__', 'get_final_scores', 'get_ot_ind']
+            for method in methods:
+                if method[0] in methods_to_exclude:
+                    pass
+                else:
+                    tables.append(method[0])      
+            
+            print(tables)    
+            
+            return clean_game_logs.clean_dfs
 
         except Exception as e:
             print(e)

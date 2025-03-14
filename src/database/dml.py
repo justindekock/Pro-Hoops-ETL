@@ -1,6 +1,7 @@
 import mariadb
 import pandas as pd
 from database.dba import connect_mariadb, disconnect, select_count_conn, show_tables, show_columns
+#from dba import connect_mariadb, disconnect, select_count_conn, show_tables, show_columns
 
 # TODO - create one function where you pass a table name and list of values, then another where you call that on a list of lists of values
 def insert_into(table, fields, values):
@@ -16,7 +17,8 @@ def insert_into(table, fields, values):
     
     try:
         for value in values:
-            cur.execute(insert_query, value)       
+            print(insert_query)
+           #cur.execute(insert_query, value)       
         
     except mariadb.Error as e:
         print(e)
@@ -26,7 +28,7 @@ def insert_into(table, fields, values):
     print(post_count)
     new_recs = post_count - pre_count
     if new_recs > 0: 
-        conn.commit()
+        #conn.commit()
         print(f'Committed insert of {new_recs} new records')
     else: 
         print(f'No new records found after insert')
@@ -34,14 +36,9 @@ def insert_into(table, fields, values):
     disconnect(conn)
 
 
-# values = [(1001,'abc'), (1002,'abc'), (1003,'bch'), (1004,'abc'), (1005,'xyc'), (1006,'xyz')]
-# insert_into('game', ['game_id', 'matchup',], values)
 
-def insert_game_logs(game_logs):
-    # pass the fields and values lists to this, and call the insert_into function for each one
-    
-    pass
-    
+
+
 
 
     

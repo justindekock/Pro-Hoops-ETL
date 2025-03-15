@@ -38,4 +38,9 @@ def run_many_days(days=1): # will fetch data for and insert into tables for the 
         insert_lists = separate_dfs(game_logs.clean_logs)
         insert_into_tables(game_logs.tables, insert_lists)
         
-        sleep(3)
+        if (i % 50) == 0:
+            sleep(60)
+        elif (i % 10) == 0:
+            sleep(20)
+        else:
+            sleep(3)

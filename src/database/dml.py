@@ -1,34 +1,70 @@
 import mariadb
-import pandas as pd
-from database.dba import connect_mariadb, disconnect, select_count_conn, show_tables, show_columns
+from database.dba import connect_mariadb, disconnect, select_count_conn
+from log_config.logs import get_logger
+
+logger = get_logger(__name__)
 
 def insert_into(table, fields, values):
     vals_ph = ', '.join(['%s'] * len(fields))
     fields_str = ', '.join(fields)
     insert_query = f'insert ignore into {table} ({fields_str}) values ({vals_ph});'
+    logger.debug(f'Insert statement generated: {insert_query}')
 
     conn, cur = connect_mariadb()
     pre_count = select_count_conn(cur, table) 
     post_count = pre_count # update post count in the try block
-    print(insert_query)
+    logger.debug(f'Records in {table} before insert: {pre_count}')
     
     try:
         for value in values:
-            cur.execute(insert_query, value)       
+            cur.execute(insert_query, value)
+            #print(insert_query)       
+        logger.debug(f'Inserts executed successfully!')
         
-    except mariadb.Error as e:
-        print(e)
+    except mariadb.Error:
+        logger.exception('Could not insert records:')
         
     post_count = select_count_conn(cur, table) 
-    print(f'Records in {table} after insert: {post_count}')
     new_recs = post_count - pre_count
+    
     if new_recs > 0: 
         conn.commit()
-        print(f'Committed insert of {new_recs} new records')
+        logger.info(f'Committed insert of {new_recs} new records into {table} -- {post_count} records now exist in table')
     else: 
-        print(f'No new records found after insert')
+        logger.info(f'Insert function executed successfully, but no new records were inserted into {table}')
         
     disconnect(conn)
+    
+# function to convert df to a list of fields and list of values, used to pass to insert_into
+def df_to_insert_lists(df):
+    fields = []
+    vals = []
+    
+    fields_np = df.columns
+    for field in fields_np:
+        fields.append(field)
+    
+    vals_np = df.to_numpy()
+    for val in vals_np:
+        val = list(val)
+        vals.append(val)
+        
+    return [fields, vals]
+
+# converts list of clean game log dfs to lists that insert_into will accept
+def separate_dfs(dfs_list):
+    insert_lists = []
+    for df in dfs_list:
+        insert_lists.append(df_to_insert_lists(df))
+    return insert_lists
+
+# for loop to execute the inserts on all tables
+def insert_into_tables(tables, fields_vals_lists):
+    for i, table in enumerate(tables):
+        insert_into(table=table, 
+                fields=fields_vals_lists[i][0],
+                values=fields_vals_lists[i][1])
+
 
 
 

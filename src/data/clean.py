@@ -1,109 +1,143 @@
+import pandas as pd
+from log_config.logs import get_logger
+
+logger = get_logger(__name__)
+
 class CleanGameLogs:
     def __init__(self, df): # pass df result from get_game_logs
-        # clean the raw data
+        logger.info(f'Cleaning and transforming {df.shape[0]} game logs for insert')
+
+        self.raw_df = self.clean_global_df(df)
+        
+        # create subset dfs for each database table
+        active_players_df = self.active_players(self.raw_df)
+        active_teams_df = self.active_teams(self.raw_df)
+        game_df = self.game(self.raw_df)
+        player_box_df = self.player_box(self.raw_df)
+        player_shooting_df = self.player_shooting(self.raw_df)
+        team_box_df = self.team_box(self.raw_df)
+        team_shooting_df = self.team_shooting(self.raw_df)
+        team_gamelog_df = self.team_gamelog(self.raw_df)
+        
+        # add clean dfs to list
+        self.clean_logs = []
+        self.clean_logs.extend([active_players_df, active_teams_df, game_df, player_box_df,
+                                player_shooting_df, team_box_df, team_shooting_df, team_gamelog_df])
+        
+        
+         # TODO - find better way to get this list
+        self.tables = ['active_players', 'active_teams', 'game', 'player_box', 'player_shooting', 'team_box',
+                  'team_shooting', 'team_gamelog']
+         
+    
+    # clean/rename columns in the raw df api response
+    def clean_global_df(self, df):
         df.columns = [col.lower() for col in df.columns]
-        self.raw_df = df.fillna(0) # fill null with zero (mostly for pct fields)
-        self.raw_df = df.rename(columns={'team_abbreviation': 'team', 'min': 'mins'})
-        
-        self.raw_df.to_csv('raw.csv', index=False)
-        
-        self.clean_dfs = []
-        
-        self.clean_dfs.append(self.active_players())
-        self.clean_dfs.append(self.active_teams())
-        self.clean_dfs.append(self.player_box())
-        self.clean_dfs.append(self.player_shooting())
-        self.clean_dfs.append(self.team_box())
-        self.clean_dfs.append(self.team_shooting())
-        self.clean_dfs.append(self.game())
-        
+        raw_df = df.fillna(0) # fill null with zero (mostly for pct fields)
+        raw_df = df.rename(columns={'team_abbreviation': 'team', 'min': 'mins'})
+        return raw_df
+ 
     # create subset dfs for each table 
-    def active_players(self):
-        self.active_players_df = self.raw_df[['player_id', 'player_name', 'team_id']]
-        #self.players_table
-        return self.active_players_df
+    def active_players(self, df):
+        active_players_df = df[['player_id', 'player_name', 'team_id']]
+        return active_players_df
         
-    def active_teams(self):
-        self.active_teams_df = self.raw_df[['team_id', 'team', 'team_name']]
-        return self.active_teams_df
+    def active_teams(self, df):
+        active_teams_df = df[['team_id', 'team', 'team_name']]
+        return active_teams_df
     
-    def player_box(self):
-        self.player_box_df = self.raw_df[['game_id', 'player_id', 'team_id', 
-                                          'mins', 'pts', 'ast', 'reb', 'stl', 'blk', 'oreb', 'dreb', 'tov', 'pf']]
-        return self.player_box_df
+    def game(self, df):
+        def drop_away_matchups(df):
+            drop_char = '@'
+            drop_rows = df[df['matchup'].str.contains(drop_char, na=False)].index
+            return df.drop(drop_rows)
+        
+        def get_ot_ind(df):
+            df['ot_ind'] = (df['mins'] > 500).astype(int)
+            return df.drop(['mins'], axis=1)
+        
+        def get_final_scores(df): # adds a formatted final score column
+            final_scores = df.pivot(index='game_id', columns='team', values='pts')
+            
+            # returns string formatted score - pass with .apply to each row
+            def format_score(row): # pass to each row with apply function
+                teams = list(row.dropna().index)
+                scores = list(row.dropna().values)
+                if len(teams) == 2: # eg 'DAL 110 - 105 BOS
+                    return f"{teams[0]} {int(scores[0])} - {int(scores[1])} {teams[1]}"
+                return None
+
+            # run the function to get the scores
+            final_scores['final_score'] = final_scores.apply(format_score, axis=1)
+            final_scores = final_scores[['final_score']].reset_index()
+            
+            # return final scores df merged with fd passed in
+            return (df.merge(final_scores, on='game_id', how='left')
+                    .drop(['team', 'pts'], axis=1).drop_duplicates())
+        
+        # ============================================================================================
+        # first four cols - id, season, date, matchup
+        game_df = drop_away_matchups(df[['game_id', 'season_id', 'game_date', 'matchup']].drop_duplicates())
+        
+        # get game type (first digit of season_id)
+        game_df['game_type'] = game_df['season_id'].astype(str).str[0].astype(int)
+        
+        # overtime indicator 
+        ot_df = get_ot_ind(df[['game_id', 'mins']].groupby('game_id').sum().reset_index())
+        
+        # final scores
+        score_df = get_final_scores(
+            df[['game_id', 'team', 'pts']].groupby(['game_id', 'team']).sum().reset_index())
+        
+        # merge all dfs together and return
+        return pd.merge(pd.merge(game_df, ot_df, on='game_id'), score_df, on='game_id')
     
-    def player_shooting(self):
-        self.player_shooting_df = self.raw_df[['game_id', 'player_id', 'team_id', 'fgm', 'fga',
+    def player_box(self, df):
+        player_box_df = df[['game_id', 'player_id', 'team_id', 'mins', 'pts',
+            'ast', 'reb', 'stl', 'blk', 'oreb', 'dreb', 'tov', 'pf']]
+        return player_box_df
+    
+    def player_shooting(self, df):
+        player_shooting_df = df[['game_id', 'player_id', 'team_id', 'fgm', 'fga',
             'fg3m', 'fg3a', 'ftm', 'fta', 'fg_pct', 'fg3_pct', 'ft_pct']]
-        return self.player_shooting_df
+        return player_shooting_df
         
-    def team_box(self):
-        self.team_box_df = self.raw_df[['game_id', 'team_id', 'team', 'mins', 'pts', 'ast', 'reb',
-            'stl', 'blk', 'oreb', 'dreb', 'tov', 'pf']].groupby(['game_id', 'team_id', 'team']).sum().reset_index()
-        return self.team_box_df
+    def team_box(self, df):
+        team_box_df = (df[['game_id', 'team_id', 'mins', 'pts', 'ast', 'reb',
+            'stl', 'blk', 'oreb', 'dreb', 'tov', 'pf']]
+            .groupby(['game_id', 'team_id']).sum().reset_index())
+        return team_box_df
     
-    def team_shooting(self):
-        team_shots = (self.raw_df[['game_id', 'team_id', 'team', 'fgm', 'fga', 'fg3m', 'fg3a', 'ftm', 'fta']]
-                      .groupby(['game_id', 'team_id', 'team'])).sum().reset_index()                                        
+    def team_shooting(self, df):
+        team_shots = (df[['game_id', 'team_id', 'fgm', 'fga', 
+            'fg3m', 'fg3a', 'ftm', 'fta']].groupby(
+                ['game_id', 'team_id'])).sum().reset_index()                                        
                                         
-        team_eff = (self.raw_df[['game_id', 'team_id', 'team', 'fg_pct', 'fg3_pct', 'ft_pct']]
-                    .groupby(['game_id', 'team_id', 'team']).mean().round(2).reset_index())
+        team_eff = (df[['game_id', 'team_id', 'fg_pct', 'fg3_pct', 'ft_pct']]
+                    .groupby(['game_id', 'team_id']).mean().round(2).reset_index())
         
-        self.team_shooting_df = team_shots.merge(team_eff, on=['game_id', 'team_id', 'team'], how='left')
-        return self.team_shooting_df
-        
-    # functions for game table (final score, overtime)
-    def get_final_scores(self):
-        final_scores = self.team_box_df.pivot(index='game_id', columns='team', values='pts')
-        
-        def format_score(row): # pass to each row with apply function
-            teams = list(row.dropna().index)
-            scores = list(row.dropna().values)
-            if len(teams) == 2: # eg 'DAL 110 - 105 BOS
-                return f"{teams[0]} {int(scores[0])} - {int(scores[1])} {teams[1]}"
-            return None
-
-        final_scores['final_score'] = final_scores.apply(format_score, axis=1)
-        final_scores = final_scores[['final_score']].reset_index()
-        self.game_df = self.game_df.merge(final_scores, on='game_id', how='left')
-        
-    def get_ot_ind(self):
-         # if the total sum of points is > 480, the game went to OT 
-        game_minutes = self.team_box_df.groupby('game_id')['mins'].sum().reset_index()
-        
-        # some non-ot games end up with +- 2-3 from 480, but ot game will have at least 530
-        game_minutes['ot_ind'] = (game_minutes['mins'] > 500).astype(int)
-        self.game_df = self.game_df.merge(game_minutes[['game_id', 'ot_ind']], on='game_id', how='left')
-        
-    def game(self):
-        self.game_df = self.raw_df[['game_id', 'season_id', 'game_date', 'matchup']].drop_duplicates()
-        
-        self.get_final_scores()
-        self.get_ot_ind()
-        
-        # derive game type from first digit of season_id - 2 = regular season, 4 is post season
-        self.game_df['game_type'] = self.game_df['season_id'].astype(str).str[0].astype(int)
-        
-        drop_char = '@'
-        drop_rows = self.game_df[self.game_df['matchup'].str.contains(drop_char, na=False)].index
-        self.game_df = self.game_df.drop(drop_rows)
-        return self.game_df
+        team_shooting_df = team_shots.merge(
+            team_eff, on=['game_id', 'team_id'], how='left')
+        return team_shooting_df
     
-
-# function to convert df to a list of fields and list of values    
-def df_to_insert_lists(df):
-    fields = []
-    vals = []
-    #print(df.columns[0])
-    
-    fields_np = df.columns
-    for field in fields_np:
-        fields.append(field)
-    
-    vals_np = df.to_numpy()
-    for val in vals_np:
-        val = list(val)
-        vals.append(val)
-    
-    #print(vals)
-    return [fields, vals]
+    def team_gamelog(self, df):
+        def get_home_ind(df): # returns 0 if matchup contains '@'
+            df['home_ind'] = (df['matchup'].apply(lambda x: 0 if '@' in x else 1))
+            return df
+        
+        def get_win_ind(df): # pivot used to compare scores, returns 1 if score is max 
+            scores_df = df.pivot(index='game_id', columns='team_id', values='pts')
+            df['win_ind'] = df.apply(lambda row: 
+                int(row['pts'] == scores_df.loc[row['game_id']].max()), axis=1)
+            return df
+        
+        working_df = (df[['game_id', 'team_id', 'matchup', 'pts']]
+                           .groupby(['game_id', 'team_id', 'matchup'])).sum().reset_index()
+        
+        # add indicator cols
+        working_df = get_win_ind(working_df)
+        working_df = get_home_ind(working_df)
+        
+        # drop unneeded cols
+        team_gamelog_df = working_df.drop(['matchup', 'pts'], axis=1)
+        return team_gamelog_df

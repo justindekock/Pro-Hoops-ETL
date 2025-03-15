@@ -1,0 +1,90 @@
+-- INFO - 16:18:54--03-15-2025:
+-- -- Fetched 216 game logs from 03/14/2025
+
+-- INFO - 16:18:54--03-15-2025:
+-- -- Cleaning and transforming 216 game logs for insert
+
+-- INFO - 16:18:55--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_players
+
+-- INFO - 16:18:55--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_teams
+
+-- INFO - 16:18:55--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into game
+
+-- INFO - 16:18:56--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into player_box
+
+-- INFO - 16:18:56--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into player_shooting
+
+-- INFO - 16:18:56--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into team_box
+
+-- INFO - 16:18:56--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into team_shooting
+
+-- INFO - 16:18:56--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into team_gamelog
+
+-- INFO - 16:18:59--03-15-2025:
+-- -- Fetched 112 game logs from 03/13/2025
+
+-- INFO - 16:18:59--03-15-2025:
+-- -- Cleaning and transforming 112 game logs for insert
+
+-- INFO - 16:18:59--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_players
+
+-- INFO - 16:18:59--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_teams
+
+-- INFO - 16:18:59--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into game
+
+-- INFO - 16:19:00--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into player_box
+
+-- INFO - 16:19:00--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into player_shooting
+
+-- INFO - 16:19:00--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into team_box
+
+-- INFO - 16:19:00--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into team_shooting
+
+-- INFO - 16:19:00--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into team_gamelog
+
+-- INFO - 16:19:03--03-15-2025:
+-- -- Fetched 187 game logs from 03/12/2025
+
+-- INFO - 16:19:03--03-15-2025:
+-- -- Cleaning and transforming 187 game logs for insert
+
+-- INFO - 16:19:03--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_players
+
+-- INFO - 16:19:04--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_teams
+
+-- INFO - 16:19:04--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into game
+
+-- INFO - 16:19:04--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into player_box
+
+-- INFO - 16:19:04--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into player_shooting
+
+-- INFO - 16:19:04--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into team_box
+
+-- INFO - 16:19:04--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into team_shooting
+
+-- INFO - 16:19:04--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into team_gamelog
+

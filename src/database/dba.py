@@ -1,5 +1,8 @@
 import mariadb
 from database.dbconfig import DBConfig
+from log_config.logs import get_logger
+
+logger = get_logger(__name__)
 
 config = DBConfig()
 
@@ -14,17 +17,17 @@ def connect_mariadb():
             port=config.DB_PORT,
             database=config.DB_DATABASE
         )
-        #print('Connected to mariadb server')
         cur = conn.cursor()
+        logger.debug(f'Database connection successful: {conn}')
         
-    except mariadb.Error as e: 
-        print(f'Error connecting {e}')
+    except mariadb.Error: 
+        logger.exception(f'Could not connect to database:')
     
     return conn, cur
 
 def disconnect(conn):
     conn.close()
-    #print('Connnection closed')
+    logger.debug('Database connection closed')
     
 def select_count(table):
     query = f'select count(*) from {table}'
@@ -39,9 +42,6 @@ def select_count_conn(cur, table):
     cur.execute(query)
     recs = cur.fetchone()
     return recs[0]
-    
-# conn, cur = connect_mariadb()
-# disconnect(conn)
 
 def show_tables(database):
     tables = []
@@ -71,10 +71,8 @@ def show_columns(table):
     
     for i, col in enumerate(cols):
         cols[i] = col[0]
-    
-    #print(cols)
+        
     print(vals)
-    
     
 def select(query, fetch_type):
     conn, cur = connect_mariadb()
@@ -87,8 +85,6 @@ def select(query, fetch_type):
         result = pd.read_sql(query, conn)
     disconnect(conn)
     return result
-#show_tables('prohoops')
-#show_columns('game')
 
 
 

@@ -7,6 +7,9 @@ from datetime import datetime
 # 'filename': f'programming/Pro-Hoops-ETL/logs/nba_etl.log'
 # 'filename': f'programming/Pro-Hoops-ETL/logs/debug/debug_{filetime}.log',
 
+# paths for laptop - 
+# 'filename': f'logs/nba_etl.log',
+# 'filename': f'programming/Pro-Hoops-ETL/logs/debug/debug_{filetime}.log',
 
 filetime = datetime.now().strftime('%m%d%y_%H%M%S')
 
@@ -32,13 +35,13 @@ log_config = {
         }, 
         'main_file_h': {
             'class': 'logging.FileHandler',
-            'filename': f'logs/nba_etl.log',
+            'filename': f'programming/Pro-Hoops-ETL/logs/nba_etl.log',
             'formatter': 'file_f',
             'level': 'INFO'
         }, 
         'dtl_file_h': {
             'class': 'logging.FileHandler',
-            'filename': f'logs/debug/debug_{filetime}.log',
+            'filename': f'programming/Pro-Hoops-ETL/logs/debug/debug_{filetime}.log',
             'formatter': 'file_f',
             'level': 'DEBUG'
         }

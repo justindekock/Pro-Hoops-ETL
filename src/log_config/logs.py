@@ -35,13 +35,13 @@ log_config = {
         }, 
         'main_file_h': {
             'class': 'logging.FileHandler',
-            'filename': f'programming/Pro-Hoops-ETL/logs/nba_etl.log',
+            'filename': f'programming/nba_etl/nba_current/logs/nba_etl.log',
             'formatter': 'file_f',
             'level': 'INFO'
         }, 
         'dtl_file_h': {
             'class': 'logging.FileHandler',
-            'filename': f'programming/Pro-Hoops-ETL/logs/debug/debug_{filetime}.log',
+            'filename': f'programming/nba_etl/nba_current/logs/debug/debug_{filetime}.log',
             'formatter': 'file_f',
             'level': 'DEBUG'
         }

@@ -13,7 +13,7 @@ def main():
     log_start_msg(logger)
     
     # this calls all functions in other modules - running this fetches, cleans, and inserts all data
-    fetch_insert_glogs_pbp(days=1, days_back=1)
+    fetch_insert_glogs_pbp(days=1, days_back=2)
     
     # close logger
     log_close_msg(logger)

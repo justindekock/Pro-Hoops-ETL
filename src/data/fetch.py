@@ -75,6 +75,10 @@ def run_many_days(days=1): # will fetch data for and insert into tables for the 
                 insert_lists = separate_dfs(game_logs.clean_logs)
                 insert_into_tables(game_logs.tables, insert_lists)
                 logger.info(f'ETL complete for {game_date}')
+                game_ids = game_logs.clean_logs[2]['game_id'].values
+                get_playbyplay(game_ids)
+                #print(game_ids)
+                
             except Exception:
                 logger.exception(f'Error inserting into database')
                 

@@ -19,19 +19,18 @@ def insert_into(table, fields, values):
         for value in values:
             cur.execute(insert_query, value)
             #print(insert_query)       
-        logger.debug(f'Inserts executed successfully!')
+        post_count = select_count_conn(cur, table) 
+        new_recs = post_count - pre_count
+        # logger.debug(f'Inserts executed successfully!')
+        if new_recs > 0: 
+            conn.commit()
+            logger.info(f'Committed insert of {new_recs} new records into {table} -- {post_count} records now exist in table')
+        else: 
+            logger.info(f'Insert function executed successfully, but no new records were inserted into {table}')
         
     except mariadb.Error:
         logger.exception('Could not insert records:')
-        
-    post_count = select_count_conn(cur, table) 
-    new_recs = post_count - pre_count
-    
-    if new_recs > 0: 
-        conn.commit()
-        logger.info(f'Committed insert of {new_recs} new records into {table} -- {post_count} records now exist in table')
-    else: 
-        logger.info(f'Insert function executed successfully, but no new records were inserted into {table}')
+        raise
         
     disconnect(conn)
     

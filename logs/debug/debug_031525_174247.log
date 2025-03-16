@@ -1,0 +1,493 @@
+-- INFO - 17:42:47--03-15-2025:
+-- -- LOG STARTED ======================================================
+
+-- INFO - 17:42:48--03-15-2025:
+-- -- Fetched 102 game logs from 02/13/2025
+
+-- INFO - 17:42:48--03-15-2025:
+-- -- Cleaning and transforming 102 game logs for insert
+
+-- INFO - 17:42:48--03-15-2025:
+-- -- Committed insert of 1 new records into active_players -- 607 records now exist in table
+
+-- INFO - 17:42:48--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_teams
+
+-- INFO - 17:42:48--03-15-2025:
+-- -- Committed insert of 5 new records into game -- 187 records now exist in table
+
+-- INFO - 17:42:48--03-15-2025:
+-- -- Committed insert of 102 new records into player_box -- 3958 records now exist in table
+
+-- INFO - 17:42:48--03-15-2025:
+-- -- Committed insert of 102 new records into player_shooting -- 3958 records now exist in table
+
+-- INFO - 17:42:48--03-15-2025:
+-- -- Committed insert of 10 new records into team_box -- 374 records now exist in table
+
+-- INFO - 17:42:48--03-15-2025:
+-- -- Committed insert of 10 new records into team_shooting -- 374 records now exist in table
+
+-- INFO - 17:42:48--03-15-2025:
+-- -- Committed insert of 10 new records into team_gamelog -- 374 records now exist in table
+
+-- ERROR - 17:42:48--03-15-2025:
+-- -- Error inserting into database
+Traceback (most recent call last):
+  File "D:\programming_projects\nba_etl\src\data\fetch.py", line 48, in run_many_days
+    logger.info(f'ETL complete for {game_date} (day {i+1}/{len(days)})')
+                                                           ~~~^^^^^^
+TypeError: object of type 'int' has no len()
+-- INFO - 17:42:49--03-15-2025:
+-- -- Fetched 314 game logs from 02/12/2025
+
+-- INFO - 17:42:49--03-15-2025:
+-- -- Cleaning and transforming 314 game logs for insert
+
+-- INFO - 17:42:49--03-15-2025:
+-- -- Committed insert of 2 new records into active_players -- 609 records now exist in table
+
+-- INFO - 17:42:50--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_teams
+
+-- INFO - 17:42:50--03-15-2025:
+-- -- Committed insert of 15 new records into game -- 202 records now exist in table
+
+-- INFO - 17:42:50--03-15-2025:
+-- -- Committed insert of 314 new records into player_box -- 4272 records now exist in table
+
+-- INFO - 17:42:51--03-15-2025:
+-- -- Committed insert of 314 new records into player_shooting -- 4272 records now exist in table
+
+-- INFO - 17:42:51--03-15-2025:
+-- -- Committed insert of 30 new records into team_box -- 404 records now exist in table
+
+-- INFO - 17:42:51--03-15-2025:
+-- -- Committed insert of 30 new records into team_shooting -- 404 records now exist in table
+
+-- INFO - 17:42:51--03-15-2025:
+-- -- Committed insert of 30 new records into team_gamelog -- 404 records now exist in table
+
+-- ERROR - 17:42:51--03-15-2025:
+-- -- Error inserting into database
+Traceback (most recent call last):
+  File "D:\programming_projects\nba_etl\src\data\fetch.py", line 48, in run_many_days
+    logger.info(f'ETL complete for {game_date} (day {i+1}/{len(days)})')
+                                                           ~~~^^^^^^
+TypeError: object of type 'int' has no len()
+-- INFO - 17:42:51--03-15-2025:
+-- -- Fetched 91 game logs from 02/11/2025
+
+-- INFO - 17:42:51--03-15-2025:
+-- -- Cleaning and transforming 91 game logs for insert
+
+-- INFO - 17:42:52--03-15-2025:
+-- -- Committed insert of 1 new records into active_players -- 610 records now exist in table
+
+-- INFO - 17:42:52--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_teams
+
+-- INFO - 17:42:52--03-15-2025:
+-- -- Committed insert of 4 new records into game -- 206 records now exist in table
+
+-- INFO - 17:42:52--03-15-2025:
+-- -- Committed insert of 91 new records into player_box -- 4363 records now exist in table
+
+-- INFO - 17:42:52--03-15-2025:
+-- -- Committed insert of 91 new records into player_shooting -- 4363 records now exist in table
+
+-- INFO - 17:42:52--03-15-2025:
+-- -- Committed insert of 8 new records into team_box -- 412 records now exist in table
+
+-- INFO - 17:42:52--03-15-2025:
+-- -- Committed insert of 8 new records into team_shooting -- 412 records now exist in table
+
+-- INFO - 17:42:52--03-15-2025:
+-- -- Committed insert of 8 new records into team_gamelog -- 412 records now exist in table
+
+-- ERROR - 17:42:52--03-15-2025:
+-- -- Error inserting into database
+Traceback (most recent call last):
+  File "D:\programming_projects\nba_etl\src\data\fetch.py", line 48, in run_many_days
+    logger.info(f'ETL complete for {game_date} (day {i+1}/{len(days)})')
+                                                           ~~~^^^^^^
+TypeError: object of type 'int' has no len()
+-- INFO - 17:42:52--03-15-2025:
+-- -- Fetched 218 game logs from 02/10/2025
+
+-- INFO - 17:42:52--03-15-2025:
+-- -- Cleaning and transforming 218 game logs for insert
+
+-- INFO - 17:42:53--03-15-2025:
+-- -- Committed insert of 1 new records into active_players -- 611 records now exist in table
+
+-- INFO - 17:42:53--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_teams
+
+-- INFO - 17:42:53--03-15-2025:
+-- -- Committed insert of 10 new records into game -- 216 records now exist in table
+
+-- INFO - 17:42:54--03-15-2025:
+-- -- Committed insert of 218 new records into player_box -- 4581 records now exist in table
+
+-- INFO - 17:42:54--03-15-2025:
+-- -- Committed insert of 218 new records into player_shooting -- 4581 records now exist in table
+
+-- INFO - 17:42:54--03-15-2025:
+-- -- Committed insert of 20 new records into team_box -- 432 records now exist in table
+
+-- INFO - 17:42:54--03-15-2025:
+-- -- Committed insert of 20 new records into team_shooting -- 432 records now exist in table
+
+-- INFO - 17:42:54--03-15-2025:
+-- -- Committed insert of 20 new records into team_gamelog -- 432 records now exist in table
+
+-- ERROR - 17:42:54--03-15-2025:
+-- -- Error inserting into database
+Traceback (most recent call last):
+  File "D:\programming_projects\nba_etl\src\data\fetch.py", line 48, in run_many_days
+    logger.info(f'ETL complete for {game_date} (day {i+1}/{len(days)})')
+                                                           ~~~^^^^^^
+TypeError: object of type 'int' has no len()
+-- INFO - 17:42:54--03-15-2025:
+-- -- Fetched 59 game logs from 02/09/2025
+
+-- INFO - 17:42:54--03-15-2025:
+-- -- Cleaning and transforming 59 game logs for insert
+
+-- INFO - 17:42:54--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_players
+
+-- INFO - 17:42:55--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_teams
+
+-- INFO - 17:42:55--03-15-2025:
+-- -- Committed insert of 3 new records into game -- 219 records now exist in table
+
+-- INFO - 17:42:55--03-15-2025:
+-- -- Committed insert of 59 new records into player_box -- 4640 records now exist in table
+
+-- INFO - 17:42:55--03-15-2025:
+-- -- Committed insert of 59 new records into player_shooting -- 4640 records now exist in table
+
+-- INFO - 17:42:55--03-15-2025:
+-- -- Committed insert of 6 new records into team_box -- 438 records now exist in table
+
+-- INFO - 17:42:55--03-15-2025:
+-- -- Committed insert of 6 new records into team_shooting -- 438 records now exist in table
+
+-- INFO - 17:42:55--03-15-2025:
+-- -- Committed insert of 6 new records into team_gamelog -- 438 records now exist in table
+
+-- ERROR - 17:42:55--03-15-2025:
+-- -- Error inserting into database
+Traceback (most recent call last):
+  File "D:\programming_projects\nba_etl\src\data\fetch.py", line 48, in run_many_days
+    logger.info(f'ETL complete for {game_date} (day {i+1}/{len(days)})')
+                                                           ~~~^^^^^^
+TypeError: object of type 'int' has no len()
+-- INFO - 17:42:55--03-15-2025:
+-- -- Fetched 235 game logs from 02/08/2025
+
+-- INFO - 17:42:55--03-15-2025:
+-- -- Cleaning and transforming 235 game logs for insert
+
+-- INFO - 17:42:56--03-15-2025:
+-- -- Committed insert of 1 new records into active_players -- 612 records now exist in table
+
+-- INFO - 17:42:56--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_teams
+
+-- INFO - 17:42:56--03-15-2025:
+-- -- Committed insert of 11 new records into game -- 230 records now exist in table
+
+-- INFO - 17:42:57--03-15-2025:
+-- -- Committed insert of 235 new records into player_box -- 4875 records now exist in table
+
+-- INFO - 17:42:57--03-15-2025:
+-- -- Committed insert of 235 new records into player_shooting -- 4875 records now exist in table
+
+-- INFO - 17:42:57--03-15-2025:
+-- -- Committed insert of 22 new records into team_box -- 460 records now exist in table
+
+-- INFO - 17:42:57--03-15-2025:
+-- -- Committed insert of 22 new records into team_shooting -- 460 records now exist in table
+
+-- INFO - 17:42:57--03-15-2025:
+-- -- Committed insert of 22 new records into team_gamelog -- 460 records now exist in table
+
+-- ERROR - 17:42:57--03-15-2025:
+-- -- Error inserting into database
+Traceback (most recent call last):
+  File "D:\programming_projects\nba_etl\src\data\fetch.py", line 48, in run_many_days
+    logger.info(f'ETL complete for {game_date} (day {i+1}/{len(days)})')
+                                                           ~~~^^^^^^
+TypeError: object of type 'int' has no len()
+-- INFO - 17:42:57--03-15-2025:
+-- -- Fetched 141 game logs from 02/07/2025
+
+-- INFO - 17:42:57--03-15-2025:
+-- -- Cleaning and transforming 141 game logs for insert
+
+-- INFO - 17:42:58--03-15-2025:
+-- -- Committed insert of 1 new records into active_players -- 613 records now exist in table
+
+-- INFO - 17:42:58--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_teams
+
+-- INFO - 17:42:58--03-15-2025:
+-- -- Committed insert of 7 new records into game -- 237 records now exist in table
+
+-- INFO - 17:42:58--03-15-2025:
+-- -- Committed insert of 141 new records into player_box -- 5016 records now exist in table
+
+-- INFO - 17:42:58--03-15-2025:
+-- -- Committed insert of 141 new records into player_shooting -- 5016 records now exist in table
+
+-- INFO - 17:42:59--03-15-2025:
+-- -- Committed insert of 14 new records into team_box -- 474 records now exist in table
+
+-- INFO - 17:42:59--03-15-2025:
+-- -- Committed insert of 14 new records into team_shooting -- 474 records now exist in table
+
+-- INFO - 17:42:59--03-15-2025:
+-- -- Committed insert of 14 new records into team_gamelog -- 474 records now exist in table
+
+-- ERROR - 17:42:59--03-15-2025:
+-- -- Error inserting into database
+Traceback (most recent call last):
+  File "D:\programming_projects\nba_etl\src\data\fetch.py", line 48, in run_many_days
+    logger.info(f'ETL complete for {game_date} (day {i+1}/{len(days)})')
+                                                           ~~~^^^^^^
+TypeError: object of type 'int' has no len()
+-- INFO - 17:42:59--03-15-2025:
+-- -- Fetched 121 game logs from 02/06/2025
+
+-- INFO - 17:42:59--03-15-2025:
+-- -- Cleaning and transforming 121 game logs for insert
+
+-- INFO - 17:42:59--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_players
+
+-- INFO - 17:42:59--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_teams
+
+-- INFO - 17:42:59--03-15-2025:
+-- -- Committed insert of 6 new records into game -- 243 records now exist in table
+
+-- INFO - 17:42:59--03-15-2025:
+-- -- Committed insert of 121 new records into player_box -- 5137 records now exist in table
+
+-- INFO - 17:43:00--03-15-2025:
+-- -- Committed insert of 121 new records into player_shooting -- 5137 records now exist in table
+
+-- INFO - 17:43:00--03-15-2025:
+-- -- Committed insert of 12 new records into team_box -- 486 records now exist in table
+
+-- INFO - 17:43:00--03-15-2025:
+-- -- Committed insert of 12 new records into team_shooting -- 486 records now exist in table
+
+-- INFO - 17:43:00--03-15-2025:
+-- -- Committed insert of 12 new records into team_gamelog -- 486 records now exist in table
+
+-- ERROR - 17:43:00--03-15-2025:
+-- -- Error inserting into database
+Traceback (most recent call last):
+  File "D:\programming_projects\nba_etl\src\data\fetch.py", line 48, in run_many_days
+    logger.info(f'ETL complete for {game_date} (day {i+1}/{len(days)})')
+                                                           ~~~^^^^^^
+TypeError: object of type 'int' has no len()
+-- INFO - 17:43:00--03-15-2025:
+-- -- Fetched 248 game logs from 02/05/2025
+
+-- INFO - 17:43:00--03-15-2025:
+-- -- Cleaning and transforming 248 game logs for insert
+
+-- INFO - 17:43:00--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_players
+
+-- INFO - 17:43:01--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_teams
+
+-- INFO - 17:43:01--03-15-2025:
+-- -- Committed insert of 11 new records into game -- 254 records now exist in table
+
+-- INFO - 17:43:01--03-15-2025:
+-- -- Committed insert of 248 new records into player_box -- 5385 records now exist in table
+
+-- INFO - 17:43:02--03-15-2025:
+-- -- Committed insert of 248 new records into player_shooting -- 5385 records now exist in table
+
+-- INFO - 17:43:02--03-15-2025:
+-- -- Committed insert of 22 new records into team_box -- 508 records now exist in table
+
+-- INFO - 17:43:02--03-15-2025:
+-- -- Committed insert of 22 new records into team_shooting -- 508 records now exist in table
+
+-- INFO - 17:43:02--03-15-2025:
+-- -- Committed insert of 22 new records into team_gamelog -- 508 records now exist in table
+
+-- ERROR - 17:43:02--03-15-2025:
+-- -- Error inserting into database
+Traceback (most recent call last):
+  File "D:\programming_projects\nba_etl\src\data\fetch.py", line 48, in run_many_days
+    logger.info(f'ETL complete for {game_date} (day {i+1}/{len(days)})')
+                                                           ~~~^^^^^^
+TypeError: object of type 'int' has no len()
+-- INFO - 17:43:02--03-15-2025:
+-- -- Fetched 148 game logs from 02/04/2025
+
+-- INFO - 17:43:02--03-15-2025:
+-- -- Cleaning and transforming 148 game logs for insert
+
+-- INFO - 17:43:02--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_players
+
+-- INFO - 17:43:03--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_teams
+
+-- INFO - 17:43:03--03-15-2025:
+-- -- Committed insert of 7 new records into game -- 261 records now exist in table
+
+-- INFO - 17:43:03--03-15-2025:
+-- -- Committed insert of 148 new records into player_box -- 5533 records now exist in table
+
+-- INFO - 17:43:03--03-15-2025:
+-- -- Committed insert of 148 new records into player_shooting -- 5533 records now exist in table
+
+-- INFO - 17:43:03--03-15-2025:
+-- -- Committed insert of 14 new records into team_box -- 522 records now exist in table
+
+-- INFO - 17:43:03--03-15-2025:
+-- -- Committed insert of 14 new records into team_shooting -- 522 records now exist in table
+
+-- INFO - 17:43:03--03-15-2025:
+-- -- Committed insert of 14 new records into team_gamelog -- 522 records now exist in table
+
+-- ERROR - 17:43:03--03-15-2025:
+-- -- Error inserting into database
+Traceback (most recent call last):
+  File "D:\programming_projects\nba_etl\src\data\fetch.py", line 48, in run_many_days
+    logger.info(f'ETL complete for {game_date} (day {i+1}/{len(days)})')
+                                                           ~~~^^^^^^
+TypeError: object of type 'int' has no len()
+-- INFO - 17:43:03--03-15-2025:
+-- -- Fetched 206 game logs from 02/03/2025
+
+-- INFO - 17:43:03--03-15-2025:
+-- -- Cleaning and transforming 206 game logs for insert
+
+-- INFO - 17:43:04--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_players
+
+-- INFO - 17:43:04--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_teams
+
+-- INFO - 17:43:04--03-15-2025:
+-- -- Committed insert of 10 new records into game -- 271 records now exist in table
+
+-- INFO - 17:43:04--03-15-2025:
+-- -- Committed insert of 206 new records into player_box -- 5739 records now exist in table
+
+-- INFO - 17:43:05--03-15-2025:
+-- -- Committed insert of 206 new records into player_shooting -- 5739 records now exist in table
+
+-- INFO - 17:43:05--03-15-2025:
+-- -- Committed insert of 20 new records into team_box -- 542 records now exist in table
+
+-- INFO - 17:43:05--03-15-2025:
+-- -- Committed insert of 20 new records into team_shooting -- 542 records now exist in table
+
+-- INFO - 17:43:05--03-15-2025:
+-- -- Committed insert of 20 new records into team_gamelog -- 542 records now exist in table
+
+-- ERROR - 17:43:05--03-15-2025:
+-- -- Error inserting into database
+Traceback (most recent call last):
+  File "D:\programming_projects\nba_etl\src\data\fetch.py", line 48, in run_many_days
+    logger.info(f'ETL complete for {game_date} (day {i+1}/{len(days)})')
+                                                           ~~~^^^^^^
+TypeError: object of type 'int' has no len()
+-- INFO - 17:43:05--03-15-2025:
+-- -- Fetched 98 game logs from 02/02/2025
+
+-- INFO - 17:43:05--03-15-2025:
+-- -- Cleaning and transforming 98 game logs for insert
+
+-- INFO - 17:43:06--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_players
+
+-- INFO - 17:43:06--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_teams
+
+-- INFO - 17:43:06--03-15-2025:
+-- -- Committed insert of 5 new records into game -- 276 records now exist in table
+
+-- INFO - 17:43:06--03-15-2025:
+-- -- Committed insert of 98 new records into player_box -- 5837 records now exist in table
+
+-- INFO - 17:43:06--03-15-2025:
+-- -- Committed insert of 98 new records into player_shooting -- 5837 records now exist in table
+
+-- INFO - 17:43:06--03-15-2025:
+-- -- Committed insert of 10 new records into team_box -- 552 records now exist in table
+
+-- INFO - 17:43:06--03-15-2025:
+-- -- Committed insert of 10 new records into team_shooting -- 552 records now exist in table
+
+-- INFO - 17:43:06--03-15-2025:
+-- -- Committed insert of 10 new records into team_gamelog -- 552 records now exist in table
+
+-- ERROR - 17:43:06--03-15-2025:
+-- -- Error inserting into database
+Traceback (most recent call last):
+  File "D:\programming_projects\nba_etl\src\data\fetch.py", line 48, in run_many_days
+    logger.info(f'ETL complete for {game_date} (day {i+1}/{len(days)})')
+                                                           ~~~^^^^^^
+TypeError: object of type 'int' has no len()
+-- INFO - 17:43:06--03-15-2025:
+-- -- Fetched 196 game logs from 02/01/2025
+
+-- INFO - 17:43:06--03-15-2025:
+-- -- Cleaning and transforming 196 game logs for insert
+
+-- INFO - 17:43:07--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_players
+
+-- INFO - 17:43:07--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_teams
+
+-- INFO - 17:43:07--03-15-2025:
+-- -- Committed insert of 9 new records into game -- 285 records now exist in table
+
+-- INFO - 17:43:07--03-15-2025:
+-- -- Committed insert of 196 new records into player_box -- 6033 records now exist in table
+
+-- INFO - 17:43:08--03-15-2025:
+-- -- Committed insert of 196 new records into player_shooting -- 6033 records now exist in table
+
+-- INFO - 17:43:08--03-15-2025:
+-- -- Committed insert of 18 new records into team_box -- 570 records now exist in table
+
+-- INFO - 17:43:08--03-15-2025:
+-- -- Committed insert of 18 new records into team_shooting -- 570 records now exist in table
+
+-- INFO - 17:43:08--03-15-2025:
+-- -- Committed insert of 18 new records into team_gamelog -- 570 records now exist in table
+
+-- ERROR - 17:43:08--03-15-2025:
+-- -- Error inserting into database
+Traceback (most recent call last):
+  File "D:\programming_projects\nba_etl\src\data\fetch.py", line 48, in run_many_days
+    logger.info(f'ETL complete for {game_date} (day {i+1}/{len(days)})')
+                                                           ~~~^^^^^^
+TypeError: object of type 'int' has no len()
+-- INFO - 17:43:08--03-15-2025:
+-- -- Fetched 155 game logs from 01/31/2025
+
+-- INFO - 17:43:08--03-15-2025:
+-- -- Cleaning and transforming 155 game logs for insert
+
+-- INFO - 17:43:08--03-15-2025:
+-- -- Committed insert of 1 new records into active_players -- 614 records now exist in table
+

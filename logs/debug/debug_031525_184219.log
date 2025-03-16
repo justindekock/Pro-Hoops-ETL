@@ -1,0 +1,156 @@
+-- INFO - 18:42:19--03-15-2025:
+-- -- LOG STARTED ======================================================
+
+-- DEBUG - 18:42:19--03-15-2025:
+-- -- Starting new HTTPS connection (1): stats.nba.com:443
+
+-- DEBUG - 18:42:19--03-15-2025:
+-- -- https://stats.nba.com:443 "GET /stats/leaguegamefinder?Conference=&DateFrom=12%2F14%2F2024&DateTo=12%2F14%2F2024&Division=&DraftNumber=&DraftRound=&DraftTeamID=&DraftYear=&EqAST=&EqBLK=&EqDD=&EqDREB=&EqFG3A=&EqFG3M=&EqFG3_PCT=&EqFGA=&EqFGM=&EqFG_PCT=&EqFTA=&EqFTM=&EqFT_PCT=&EqMINUTES=&EqOREB=&EqPF=&EqPTS=&EqREB=&EqSTL=&EqTD=&EqTOV=&GameID=&GtAST=&GtBLK=&GtDD=&GtDREB=&GtFG3A=&GtFG3M=&GtFG3_PCT=&GtFGA=&GtFGM=&GtFG_PCT=&GtFTA=&GtFTM=&GtFT_PCT=&GtMINUTES=&GtOREB=&GtPF=&GtPTS=&GtREB=&GtSTL=&GtTD=&GtTOV=&LeagueID=00&Location=&LtAST=&LtBLK=&LtDD=&LtDREB=&LtFG3A=&LtFG3M=&LtFG3_PCT=&LtFGA=&LtFGM=&LtFG_PCT=&LtFTA=&LtFTM=&LtFT_PCT=&LtMINUTES=&LtOREB=&LtPF=&LtPTS=&LtREB=&LtSTL=&LtTD=&LtTOV=&Outcome=&PORound=&PlayerID=&PlayerOrTeam=P&RookieYear=&Season=&SeasonSegment=&SeasonType=&StarterBench=&TeamID=&VsConference=&VsDivision=&VsTeamID=&YearsExperience= HTTP/1.1" 200 2192
+
+-- INFO - 18:42:19--03-15-2025:
+-- -- Fetched 37 game logs from 12/14/2024
+
+-- INFO - 18:42:19--03-15-2025:
+-- -- Cleaning and transforming 37 game logs for insert
+
+-- DEBUG - 18:42:19--03-15-2025:
+-- -- Insert statement generated: insert into active_players (game_id, season_id, game_date, matchup, game_type, ot_ind, final_score) values (%s, %s, %s, %s, %s, %s, %s);
+
+-- DEBUG - 18:42:19--03-15-2025:
+-- -- Database connection successful: <mariadb.connection connected to 'pi-jdeto' at 000002C71A897610>
+
+-- DEBUG - 18:42:19--03-15-2025:
+-- -- Records in active_players before insert: 629
+
+-- INFO - 18:42:19--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_players
+
+-- DEBUG - 18:42:19--03-15-2025:
+-- -- Database connection closed
+
+-- DEBUG - 18:42:19--03-15-2025:
+-- -- Insert statement generated: insert into active_teams (game_id, player_id, team_id, mins, pts, ast, reb, stl, blk, oreb, dreb, tov, pf) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+
+-- DEBUG - 18:42:19--03-15-2025:
+-- -- Database connection successful: <mariadb.connection connected to 'pi-jdeto' at 000002C71A896AD0>
+
+-- DEBUG - 18:42:19--03-15-2025:
+-- -- Records in active_teams before insert: 30
+
+-- ERROR - 18:42:19--03-15-2025:
+-- -- Could not insert records:
+Traceback (most recent call last):
+  File "D:\programming_projects\nba_etl\src\database\dml.py", line 20, in insert_into
+    cur.execute(insert_query, value)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "d:\programming_projects\nba_etl\.venv\Lib\site-packages\mariadb\cursors.py", line 313, in execute
+    self._execute_binary()
+    ~~~~~~~~~~~~~~~~~~~~^^
+mariadb.ProgrammingError: Unknown column 'game_id' in 'INSERT INTO'
+-- DEBUG - 18:42:19--03-15-2025:
+-- -- Database connection closed
+
+-- DEBUG - 18:42:19--03-15-2025:
+-- -- Insert statement generated: insert into game (game_id, player_id, team_id, fgm, fga, fg3m, fg3a, ftm, fta, fg_pct, fg3_pct, ft_pct) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+
+-- DEBUG - 18:42:19--03-15-2025:
+-- -- Database connection successful: <mariadb.connection connected to 'pi-jdeto' at 000002C71A896990>
+
+-- DEBUG - 18:42:19--03-15-2025:
+-- -- Records in game before insert: 991
+
+-- ERROR - 18:42:19--03-15-2025:
+-- -- Could not insert records:
+Traceback (most recent call last):
+  File "D:\programming_projects\nba_etl\src\database\dml.py", line 20, in insert_into
+    cur.execute(insert_query, value)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "d:\programming_projects\nba_etl\.venv\Lib\site-packages\mariadb\cursors.py", line 313, in execute
+    self._execute_binary()
+    ~~~~~~~~~~~~~~~~~~~~^^
+mariadb.ProgrammingError: Unknown column 'player_id' in 'INSERT INTO'
+-- DEBUG - 18:42:19--03-15-2025:
+-- -- Database connection closed
+
+-- DEBUG - 18:42:19--03-15-2025:
+-- -- Insert statement generated: insert into player_box (game_id, team_id, mins, pts, ast, reb, stl, blk, oreb, dreb, tov, pf) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+
+-- DEBUG - 18:42:19--03-15-2025:
+-- -- Database connection successful: <mariadb.connection connected to 'pi-jdeto' at 000002C71A897890>
+
+-- DEBUG - 18:42:19--03-15-2025:
+-- -- Records in player_box before insert: 21244
+
+-- ERROR - 18:42:19--03-15-2025:
+-- -- Could not insert records:
+Traceback (most recent call last):
+  File "D:\programming_projects\nba_etl\src\database\dml.py", line 20, in insert_into
+    cur.execute(insert_query, value)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "d:\programming_projects\nba_etl\.venv\Lib\site-packages\mariadb\cursors.py", line 313, in execute
+    self._execute_binary()
+    ~~~~~~~~~~~~~~~~~~~~^^
+mariadb.IntegrityError: Field 'player_id' doesn't have a default value
+-- DEBUG - 18:42:19--03-15-2025:
+-- -- Database connection closed
+
+-- DEBUG - 18:42:19--03-15-2025:
+-- -- Insert statement generated: insert into player_shooting (game_id, team_id, fgm, fga, fg3m, fg3a, ftm, fta, fg_pct, fg3_pct, ft_pct) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+
+-- DEBUG - 18:42:19--03-15-2025:
+-- -- Database connection successful: <mariadb.connection connected to 'pi-jdeto' at 000002C71A897B10>
+
+-- DEBUG - 18:42:19--03-15-2025:
+-- -- Records in player_shooting before insert: 21244
+
+-- ERROR - 18:42:19--03-15-2025:
+-- -- Could not insert records:
+Traceback (most recent call last):
+  File "D:\programming_projects\nba_etl\src\database\dml.py", line 20, in insert_into
+    cur.execute(insert_query, value)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "d:\programming_projects\nba_etl\.venv\Lib\site-packages\mariadb\cursors.py", line 313, in execute
+    self._execute_binary()
+    ~~~~~~~~~~~~~~~~~~~~^^
+mariadb.IntegrityError: Field 'player_id' doesn't have a default value
+-- DEBUG - 18:42:19--03-15-2025:
+-- -- Database connection closed
+
+-- DEBUG - 18:42:19--03-15-2025:
+-- -- Insert statement generated: insert into team_box (game_id, team_id, win_ind, home_ind) values (%s, %s, %s, %s);
+
+-- DEBUG - 18:42:19--03-15-2025:
+-- -- Database connection successful: <mariadb.connection connected to 'pi-jdeto' at 000002C71A897D90>
+
+-- DEBUG - 18:42:19--03-15-2025:
+-- -- Records in team_box before insert: 1982
+
+-- ERROR - 18:42:19--03-15-2025:
+-- -- Could not insert records:
+Traceback (most recent call last):
+  File "D:\programming_projects\nba_etl\src\database\dml.py", line 20, in insert_into
+    cur.execute(insert_query, value)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "d:\programming_projects\nba_etl\.venv\Lib\site-packages\mariadb\cursors.py", line 313, in execute
+    self._execute_binary()
+    ~~~~~~~~~~~~~~~~~~~~^^
+mariadb.ProgrammingError: Unknown column 'win_ind' in 'INSERT INTO'
+-- DEBUG - 18:42:19--03-15-2025:
+-- -- Database connection closed
+
+-- ERROR - 18:42:19--03-15-2025:
+-- -- Error inserting into database
+Traceback (most recent call last):
+  File "D:\programming_projects\nba_etl\src\data\fetch.py", line 49, in run_many_days
+    insert_into_tables(game_logs.tables, insert_lists)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\programming_projects\nba_etl\src\database\dml.py", line 63, in insert_into_tables
+    fields=fields_vals_lists[i][0],
+           ~~~~~~~~~~~~~~~~~^^^
+IndexError: list index out of range
+-- DEBUG - 18:42:19--03-15-2025:
+-- -- Delaying for 60 seconds...
+
+-- INFO - 18:42:19--03-15-2025:
+-- -- LOG COMPLETE =======================================================
+

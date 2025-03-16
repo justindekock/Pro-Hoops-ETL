@@ -1,0 +1,39 @@
+-- INFO - 17:49:13--03-15-2025:
+-- -- LOG STARTED ======================================================
+
+-- INFO - 17:49:13--03-15-2025:
+-- -- Fetched 234 game logs from 10/23/2024
+
+-- INFO - 17:49:13--03-15-2025:
+-- -- Cleaning and transforming 234 game logs for insert
+
+-- INFO - 17:49:14--03-15-2025:
+-- -- Committed insert of 1 new records into active_players -- 629 records now exist in table
+
+-- INFO - 17:49:14--03-15-2025:
+-- -- Insert function executed successfully, but no new records were inserted into active_teams
+
+-- INFO - 17:49:14--03-15-2025:
+-- -- Committed insert of 10 new records into game -- 985 records now exist in table
+
+-- INFO - 17:49:15--03-15-2025:
+-- -- Committed insert of 234 new records into player_box -- 21102 records now exist in table
+
+-- INFO - 17:49:15--03-15-2025:
+-- -- Committed insert of 234 new records into player_shooting -- 21102 records now exist in table
+
+-- INFO - 17:49:15--03-15-2025:
+-- -- Committed insert of 20 new records into team_box -- 1970 records now exist in table
+
+-- INFO - 17:49:15--03-15-2025:
+-- -- Committed insert of 20 new records into team_shooting -- 1982 records now exist in table
+
+-- INFO - 17:49:15--03-15-2025:
+-- -- Committed insert of 20 new records into team_gamelog -- 1970 records now exist in table
+
+-- INFO - 17:49:15--03-15-2025:
+-- -- ETL complete for 10/23/2024
+
+-- INFO - 17:49:15--03-15-2025:
+-- -- LOG COMPLETE =======================================================
+

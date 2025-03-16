@@ -39,7 +39,7 @@ log_config = {
     'loggers': {
         '':{
         'handlers': ['stream_h', 'main_file_h', 'dtl_file_h'],
-        'level': 'INFO',
+        'level': 'DEBUG',
         'propagate': False
         }
     }

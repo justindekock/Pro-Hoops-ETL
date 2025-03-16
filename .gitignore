@@ -1,6 +1,6 @@
 .venv/
 /src/database/dbconfig.py
 .vscode/
-/src/log_config/logs.py
+/src/log_config/logs_loc.py
 *.csv
 *.log

@@ -147,46 +147,53 @@ class CleanGameLogs:
     
 
 class CleanPlaybyPlay:
-    def __init__(self, df):
+    def __init__(self, pbp_dfs):
         # clean play by play - probably just going into one table for now
-        self.clean_pbp_df = self.clean_playbyplay(df)
-        print(self.clean_pbp_df)
+        self.clean_pbp_dfs = self.clean_playbyplay(pbp_dfs)
         
-    def clean_playbyplay(self, df):
-        pbp_df = df[['gameId', 'actionId', 'teamId', 'personId', 'period', 'clock',
-                     'pointsTotal', 'scoreHome', 'scoreAway', 'isFieldGoal', 'shotValue', 
-                     'shotResult', 'actionType', 'subType', 'description', 'shotDistance',
-                     'xLegacy', 'yLegacy', 'videoAvailable']]
         
-        cols_to_replace = {
-            'gameId': 'game_id',
-            'actionId': 'act_id',
-            'teamId': 'team_id', 
-            'personId': 'player_id',
-            'period': 'quarter', 
-            'pointsTotal': 'pts_total', 
-            'scoreHome': 'score_h',
-            'scoreAway': 'score_a',
-            'isFieldGoal': 'fg_ind',
-            'shotValue': 'shot_val',
-            'shotResult': 'shot_result',
-            'actionType': 'act_type',
-            'subType': 'sub_type',
-            'description': 'play_desc',
-            'shotDistance': 'shot_dist',
-            'xLegacy': 'legacy_x',
-            'yLegacy': 'legacy_y',
-            'videoAvailable': 'vid_avail'
-        }
-        pbp_df = pbp_df.rename(columns=cols_to_replace)
+    def clean_playbyplay(self, pbp_dfs):
+        clean_pbp_dfs = []
         
-        # convert shot result to binary
-        pbp_df['shot_result'] = pbp_df['shot_result'].apply(
-            lambda x: 1 if x == 'Made' else 0 if x == 'Missed' else None)
+        for df in pbp_dfs:
+            
+            pbp_df = df[['gameId', 'actionId', 'teamId', 'personId', 'period', 'clock',
+                        'pointsTotal', 'scoreHome', 'scoreAway', 'isFieldGoal', 'shotValue', 
+                        'shotResult', 'actionType', 'subType', 'description', 'shotDistance',
+                        'xLegacy', 'yLegacy', 'videoAvailable']]
+            
+            cols_to_replace = {
+                'gameId': 'game_id',
+                'actionId': 'act_id',
+                'teamId': 'team_id', 
+                'personId': 'player_id',
+                'period': 'quarter', 
+                'pointsTotal': 'pts_total', 
+                'scoreHome': 'score_h',
+                'scoreAway': 'score_a',
+                'isFieldGoal': 'fg_ind',
+                'shotValue': 'shot_val',
+                'shotResult': 'shot_result',
+                'actionType': 'act_type',
+                'subType': 'sub_type',
+                'description': 'play_desc',
+                'shotDistance': 'shot_dist',
+                'xLegacy': 'legacy_x',
+                'yLegacy': 'legacy_y',
+                'videoAvailable': 'vid_avail'
+            }
+            
+            pbp_df = pbp_df.rename(columns=cols_to_replace)
         
-        # when team_id is 0 make player_id 0
-        pbp_df['player_id'] = pbp_df['player_id'].where(pbp_df['team_id'] != 0, 0)
+            # convert shot result to binary
+            pbp_df['shot_result'] = pbp_df['shot_result'].apply(
+                lambda x: 1 if x == 'Made' else 0 if x == 'Missed' else None)
+            
+            # when team_id is 0 make player_id 0
+            pbp_df['player_id'] = pbp_df['player_id'].where(pbp_df['team_id'] != 0, 0)
+            
+            clean_pbp_dfs.append(pbp_df)
+            
+            # TODO - get function to get game time from clock
         
-        # TODO - get function to get game time from clock
-        
-        return pbp_df
+        return clean_pbp_dfs

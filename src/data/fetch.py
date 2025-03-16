@@ -2,7 +2,7 @@ from time import sleep
 from datetime import datetime, timedelta
 from nba_api.stats.endpoints import leaguegamefinder, playbyplayv3
 from data.clean import CleanGameLogs, CleanPlaybyPlay
-from database.dml import separate_dfs, insert_into_tables
+from database.dml import separate_dfs, insert_into_tables, insert_pbp
 from log_config.logs import get_logger
 
 logger = get_logger(__name__)
@@ -37,7 +37,6 @@ def get_game_logs(game_date):
             
     return None
 
-
 # TODO - write function to fetch play-by-play data
 def get_playbyplay(game_ids): # accept list of game_ids from the game_logs fetched
     pbp_data = []
@@ -57,13 +56,9 @@ def get_playbyplay(game_ids): # accept list of game_ids from the game_logs fetch
   
             except Exception:
                 logger.exception(f'Failed fetching play-by-play for {game_id}')
-                
-    # pbp_data[0].to_csv('raw_pbp.csv')
-    #print(pbp_data[0].dtypes)
-    CleanPlaybyPlay(pbp_data[0])
+
+    return CleanPlaybyPlay(pbp_data)
     
-    
-        
 def run_many_days(days=1): # will fetch data for and insert into tables for the number of days passed)
     game_date_many = ((datetime.today()) - timedelta(1))
     for i in range(days):
@@ -74,10 +69,22 @@ def run_many_days(days=1): # will fetch data for and insert into tables for the 
             try:
                 insert_lists = separate_dfs(game_logs.clean_logs)
                 insert_into_tables(game_logs.tables, insert_lists)
-                logger.info(f'ETL complete for {game_date}')
+                logger.info(f'Game log ETL complete for {game_date} -- fetching play-by-play data')
+                
                 game_ids = game_logs.clean_logs[2]['game_id'].values
-                get_playbyplay(game_ids)
-                #print(game_ids)
+                if len(game_ids) > 0:
+                    try:
+                        playbyplay = get_playbyplay(game_ids) # returns list of clean dfs
+                        pbp_inserts = separate_dfs(playbyplay.clean_pbp_dfs)
+                        try:
+                            print(pbp_inserts[0])
+                            insert_pbp('playbyplay', pbp_inserts)    
+                            logger.info('Succesfully inserted playbyplay data')
+                        except Exception:
+                            logger.exception('Error inserting play-by-play data')
+                        
+                    except Exception:
+                        logger.exception('Error fetching play-by-play data')
                 
             except Exception:
                 logger.exception(f'Error inserting into database')

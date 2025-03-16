@@ -63,7 +63,12 @@ def insert_into_tables(tables, fields_vals_lists):
         insert_into(table=table, 
                 fields=fields_vals_lists[i][0],
                 values=fields_vals_lists[i][1])
-
+        
+def insert_pbp(table, fields_vals_list):
+    for fields_vals in fields_vals_list:
+        insert_into(table = table,
+                    fields=fields_vals[0],
+                    values=fields_vals[1])
 
 
 

@@ -38,7 +38,7 @@ def get_game_logs(game_date):
     return None
         
 def run_many_days(days=1): # will fetch data for and insert into tables for the number of days passed
-    game_date_many = ((datetime.today()) - timedelta(91))
+    game_date_many = ((datetime.today()) - timedelta(1))
     for i in range(days):
         game_date = (game_date_many - timedelta(i)).strftime('%m/%d/%Y')
         game_logs = get_game_logs(game_date) 

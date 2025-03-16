@@ -13,7 +13,6 @@ class CleanGameLogs:
         active_players_df = self.active_players(self.raw_df)
         active_teams_df = self.active_teams(self.raw_df)
         game_df = self.game(self.raw_df)
-        print(game_df)
         player_box_df = self.player_box(self.raw_df)
         player_shooting_df = self.player_shooting(self.raw_df)
         team_box_df = self.team_box(self.raw_df)
@@ -81,7 +80,6 @@ class CleanGameLogs:
         
         # ============================================================================================
         # first four cols - id, season, date, matchup
-        print(df[['game_id', 'season_id', 'game_date', 'matchup']].drop_duplicates())
         game_df = drop_away_matchups(df[['game_id', 'season_id', 'game_date', 'matchup']].drop_duplicates())
         
         

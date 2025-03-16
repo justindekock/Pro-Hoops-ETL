@@ -10,6 +10,8 @@ logger = get_logger(__name__)
 # TODO - function to fetch all active players everyday
 
 def get_game_logs(game_date):
+    delay = 5
+    error_delay = 15
     retry_count = 0
     while retry_count < 3:
         try:
@@ -33,17 +35,19 @@ def get_game_logs(game_date):
         except Exception:
             logger.exception(f'Error fetching games for {game_date} after {retry_count} try(ies)')
             retry_count += 1
-            sleep(10)
+            sleep(error_delay)
+    sleep(delay)
             
     return None
 
 # TODO - write function to fetch play-by-play data
 def get_playbyplay(game_ids): # accept list of game_ids from the game_logs fetched
-    pbp_data = []
-    for game_id in game_ids:
-        delay = 10
-        retry_count = 0
+    delay = 5
+    error_delay = 15
+    pbp_data = [] 
     
+    for game_id in game_ids:
+        retry_count = 0
         while retry_count < 3:
             try: 
                 logger.debug(f'Attempting play-by-play fetch for {game_id}')
@@ -53,14 +57,14 @@ def get_playbyplay(game_ids): # accept list of game_ids from the game_logs fetch
                     pbp_data.append(pbp_df)
                     logger.info(f'Play-by-play data ({pbp_recs} rows) successfully fetched for {game_id}')
                     break
-  
             except Exception:
                 logger.exception(f'Failed fetching play-by-play for {game_id}')
-
+                sleep(error_delay)
+        sleep(delay)
     return CleanPlaybyPlay(pbp_data)
     
-def run_many_days(days=1): # will fetch data for and insert into tables for the number of days passed)
-    game_date_many = ((datetime.today()) - timedelta(1))
+def fetch_insert_glogs_pbp(days=1, days_back=1): # will fetch data for and insert into tables for the number of days passed)
+    game_date_many = ((datetime.today()) - timedelta(days_back)) 
     for i in range(days):
         game_date = (game_date_many - timedelta(i)).strftime('%m/%d/%Y')
         game_logs = get_game_logs(game_date) 
@@ -77,7 +81,6 @@ def run_many_days(days=1): # will fetch data for and insert into tables for the 
                         playbyplay = get_playbyplay(game_ids) # returns list of clean dfs
                         pbp_inserts = separate_dfs(playbyplay.clean_pbp_dfs)
                         try:
-                            print(pbp_inserts[0])
                             insert_pbp('playbyplay', pbp_inserts)    
                             logger.info('Succesfully inserted playbyplay data')
                         except Exception:
@@ -92,11 +95,16 @@ def run_many_days(days=1): # will fetch data for and insert into tables for the 
         else:
             logger.info(f'No game logs fetched for {game_date}')
         
-        if (i % 50) == 0:
-            delay = 60
-        elif (i % 10) == 0:
-            delay = 20
-        else:
-            delay = 3
-            
-        logger.debug(f'Delaying for {delay} seconds...')
+        # finish if only one day requested, delay before next day if multiple days
+        logger.info(f'Finished ETL for {game_date}')
+        if days == 1:
+            break
+        else: # longer delays after so many days to respect rate limiting
+            if (i % 50) == 0:
+                delay = 60
+            elif (i % 10) == 0:
+                delay = 20
+            else:
+                delay = 3
+            logger.debug(f'Delaying for {delay} seconds...')
+            sleep(delay)

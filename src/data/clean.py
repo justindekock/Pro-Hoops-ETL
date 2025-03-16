@@ -148,9 +148,7 @@ class CleanGameLogs:
 
 class CleanPlaybyPlay:
     def __init__(self, pbp_dfs):
-        # clean play by play - probably just going into one table for now
         self.clean_pbp_dfs = self.clean_playbyplay(pbp_dfs)
-        
         
     def clean_playbyplay(self, pbp_dfs):
         clean_pbp_dfs = []
@@ -191,6 +189,8 @@ class CleanPlaybyPlay:
             
             # when team_id is 0 make player_id 0
             pbp_df['player_id'] = pbp_df['player_id'].where(pbp_df['team_id'] != 0, 0)
+            
+            pbp_df = pbp_df.drop_duplicates()
             
             clean_pbp_dfs.append(pbp_df)
             

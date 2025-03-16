@@ -38,3 +38,26 @@ inner join team_gamelog b on a.game_id = b.game_id
 inner join active_teams c on b.team_id = c.team_id
 where c.team = 'OKC'
 order by a.game_date;
+
+create view pbp_detail as 
+    select 
+        a.game_id,
+        a.act_id,
+        a.quarter,
+        a.clock,
+        c.team,
+        b.player_name,
+        a.score_h,
+        a.score_a,
+        a.fg_ind,
+        a.shot_result,
+        a.shot_val,
+        a.shot_dist,
+        a.act_type,
+        a.play_desc
+
+    from playbyplay a 
+    inner join active_players b on a.player_id = b.player_id
+    inner join active_teams c on a.team_id = c.team_id
+
+    order by game_id, act_id

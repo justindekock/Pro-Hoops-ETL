@@ -18,7 +18,7 @@ def insert_into(table, fields, values):
     try:
         for value in values:
             cur.execute(insert_query, value)
-            #print(insert_query)       
+                
         post_count = select_count_conn(cur, table) 
         new_recs = post_count - pre_count
         # logger.debug(f'Inserts executed successfully!')

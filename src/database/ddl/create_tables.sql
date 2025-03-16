@@ -129,3 +129,61 @@ select a.player_name, b.team_name
 from active_players a 
 inner join active_teams b on a.team_id = b.team_id;
 */
+
+/* CREATE PLAY BY PLAY TABLE*/ 
+
+create table if not exists playbyplay (
+    game_id int not null,
+    act_id smallint not null, 
+    team_id int,
+    player_id int, /*personId*/
+    quarter tinyint, /*period from api*/
+    clock varchar(20),
+    pts_total smallint, 
+    score_h smallint,
+    score_a smallint, 
+    fg_ind boolean, /*isFieldGoal*/
+    shot_val tinyint, 
+    shot_result boolean, /*currently made/missed, change to 1 0*/
+    act_type varchar(50),
+    sub_type varchar(50),
+    play_desc varchar(255),
+    shot_dist tinyint,
+    legacy_x smallint,
+    legacy_y smallint, 
+    vid_avail boolean,
+    primary key (game_id, act_id),
+    foreign key (team_id) references active_teams (team_id),
+    foreign key (player_id) references active_players (player_id),
+    foreign key (game_id) references game (game_id)
+);
+
+create table if not exists playbyplay (
+    game_id int not null,
+    act_id smallint not null, 
+    team_id int,
+    player_id int,
+    quarter tinyint,
+    clock varchar(20),
+    pts_total smallint, 
+    score_h smallint,
+    score_a smallint, 
+    fg_ind boolean,
+    shot_val tinyint, 
+    shot_result boolean,
+    act_type varchar(50),
+    sub_type varchar(50),
+    play_desc varchar(255),
+    shot_dist tinyint,
+    legacy_x smallint,
+    legacy_y smallint, 
+    vid_avail boolean,
+    primary key (game_id, act_id),
+    foreign key (team_id) references active_teams (team_id),
+    foreign key (player_id) references active_players (player_id),
+    foreign key (game_id) references game (game_id)
+);
+
+insert into active_teams (team_id, team, team_name) values (0, "NAT", "Playbyplay Placeholder");
+
+insert into active_players (player_id, player_name, team_id) values (0, "Playbyplay Placeholder", 0);

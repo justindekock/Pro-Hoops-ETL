@@ -1,7 +1,7 @@
 from time import sleep
 from datetime import datetime, timedelta
-from nba_api.stats.endpoints import leaguegamefinder
-from data.clean import CleanGameLogs
+from nba_api.stats.endpoints import leaguegamefinder, playbyplayv3
+from data.clean import CleanGameLogs, CleanPlaybyPlay
 from database.dml import separate_dfs, insert_into_tables
 from log_config.logs import get_logger
 
@@ -36,8 +36,35 @@ def get_game_logs(game_date):
             sleep(10)
             
     return None
+
+
+# TODO - write function to fetch play-by-play data
+def get_playbyplay(game_ids): # accept list of game_ids from the game_logs fetched
+    pbp_data = []
+    for game_id in game_ids:
+        delay = 10
+        retry_count = 0
+    
+        while retry_count < 3:
+            try: 
+                logger.debug(f'Attempting play-by-play fetch for {game_id}')
+                pbp_df = playbyplayv3.PlayByPlayV3(game_id).get_data_frames()[0]
+                pbp_recs = pbp_df.shape[0]
+                if pbp_recs > 0:
+                    pbp_data.append(pbp_df)
+                    logger.info(f'Play-by-play data ({pbp_recs} rows) successfully fetched for {game_id}')
+                    break
+  
+            except Exception:
+                logger.exception(f'Failed fetching play-by-play for {game_id}')
+                
+    # pbp_data[0].to_csv('raw_pbp.csv')
+    #print(pbp_data[0].dtypes)
+    CleanPlaybyPlay(pbp_data[0])
+    
+    
         
-def run_many_days(days=1): # will fetch data for and insert into tables for the number of days passed
+def run_many_days(days=1): # will fetch data for and insert into tables for the number of days passed)
     game_date_many = ((datetime.today()) - timedelta(1))
     for i in range(days):
         game_date = (game_date_many - timedelta(i)).strftime('%m/%d/%Y')

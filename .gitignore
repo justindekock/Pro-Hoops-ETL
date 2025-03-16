@@ -2,3 +2,5 @@
 /src/database/dbconfig.py
 .vscode/
 /src/log_config/logs.py
+*.csv
+*.log

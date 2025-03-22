@@ -6,3 +6,4 @@
 *.log
 /src/gmail/gmail_config.py
 /src/gmail/logs/
+*pycache*

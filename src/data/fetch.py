@@ -45,7 +45,7 @@ def get_game_logs(game_date, game_date_to=None, fetch_type='current'):
 
 # TODO - write function to fetch play-by-play data
 def get_playbyplay(game_ids): # accept list of game_ids from the game_logs fetched
-    delay = 1
+    delay = 5
     error_delay = 15
     pbp_data = [] 
     
@@ -63,7 +63,7 @@ def get_playbyplay(game_ids): # accept list of game_ids from the game_logs fetch
             except Exception:
                 logger.exception(f'Failed fetching play-by-play for {game_id}')
                 sleep(error_delay)
-        #sleep(delay)
+        sleep(delay)
     return CleanPlaybyPlay(pbp_data)
     
 def fetch_insert_glogs_pbp(gmail_log, days=1, days_back=1, 

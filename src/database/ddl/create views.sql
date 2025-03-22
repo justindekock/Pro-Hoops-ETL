@@ -61,3 +61,42 @@ create view pbp_detail as
     inner join active_teams c on a.team_id = c.team_id
 
     order by game_id, act_id
+
+create or replace view pg as
+    select
+    c.player_name,
+    avg(a.pts) as pts_pg,
+    avg(a.ast) as ast_pg,
+    avg(a.reb) as reb_pg,
+    avg(b.fg_pct) as avg_fg_pct,
+    avg(b.fg3_pct) as avg_fg3_pct,
+    avg(b.ft_pct) as avg_ft_pct,
+    avg(b.fga) as fga_pg,
+    avg(b.fg3a) as fg3a_pg,
+    avg(b.fta) as fta_pg
+
+    from player_box a 
+    inner join player_shooting b on a.game_id = b.game_id 
+        and a.player_id = b.player_id
+    inner join active_players c on a.player_id = c.player_id
+    
+    group by c.player_name
+
+    order by pts_pg desc;
+
+create or replace view wins as 
+    select 
+        sum(a.win_ind) 
+    from team_gamelog a 
+    inner join active_teams b on a.team_id = b.team_id 
+    where b.team = 'LAL';
+    
+    
+
+create or replace view pbp_season_counts as 
+    select b.season_id, count(distinct a.game_id) as games 
+    
+    from playbyplay a
+    inner join game b on a.game_id = b.game_id
+    where b.game_type = 2 
+    group by b.season_id;

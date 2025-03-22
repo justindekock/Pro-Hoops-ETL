@@ -145,6 +145,14 @@ class CleanGameLogs:
         team_gamelog_df = working_df.drop(['matchup', 'pts'], axis=1)
         return team_gamelog_df
     
+class HistCleanGameLogs(CleanGameLogs):
+    def __init__(self, df):
+        super().__init__(df) # just change the list to all players/teams
+        
+        self.tables = ['all_players', 'all_teams', 'game', 'player_box', 'player_shooting', 'team_box',
+                      'team_shooting', 'team_gamelog']
+        
+        
 
 class CleanPlaybyPlay:
     def __init__(self, pbp_dfs):
@@ -197,3 +205,5 @@ class CleanPlaybyPlay:
             # TODO - get function to get game time from clock
         
         return clean_pbp_dfs
+    
+

@@ -6,7 +6,7 @@ logger = get_logger(__name__)
 
 config = DBConfig()
 
-def connect_mariadb():
+def connect_mariadb(database=None): # defaults to nba_current - pass nba_historic for historic data
     conn = None
     cur = None
     try: 
@@ -15,7 +15,7 @@ def connect_mariadb():
             password=config.DB_PASSWORD,
             host=config.DB_HOST,
             port=config.DB_PORT,
-            database=config.DB_DATABASE
+            database=config.DB_DATABASE if not database else database
         )
         cur = conn.cursor()
         logger.debug(f'Database connection successful: {conn}')

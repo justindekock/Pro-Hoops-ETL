@@ -4,3 +4,4 @@
 /src/log_config/logs_loc.py
 *.csv
 *.log
+/src/gmail/gmail_config.py

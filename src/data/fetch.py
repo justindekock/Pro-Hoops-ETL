@@ -21,6 +21,7 @@ def get_game_logs(game_date, game_date_to=None, fetch_type='current'):
             date_from_nullable=game_date, # serves as date from regardless
             date_to_nullable=game_date_to if game_date_to else game_date
             ).get_data_frames()[0]
+            #print(game_logs_df.head())
             
             #game_logs_df.to_csv('raw.csv')
             
